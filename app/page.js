@@ -1,11 +1,11 @@
 import Calculator from "./components/calculator";
 export default function Home() {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div id="app">
       <Calculator />
-      <div className="">
+      <div className="text-xl" style={{ fontFamily: "digital" }}>
         Designed and Coded by <br />
-        <a>Tarik</a>
+        Tarik
       </div>
     </div>
   );

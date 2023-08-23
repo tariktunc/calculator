@@ -1,22 +1,24 @@
 import React from "react";
 
 export default function calculator() {
+  const handleClick = (e) => {
+    console.log(e.target.value);
+  };
   return (
     <div className="p-2 bg-black w-[340px] relative  border-2 border-solid border-47476b">
       {/* Formula Screen */}
-
       <div
-        className=" min-h-full font text-sm text-orange-600 text-right align-text-top leading-5 break-words"
+        className=" font text-sm text-orange-600 text-right align-text-top leading-5 break-words"
         style={{ fontFamily: "digital" }}>
-        666666666666666666666666666666666666666666666
+        0
       </div>
-      {/* Output Screen */}
 
+      {/* Output Screen */}
       <div
         className="outputScreen text-2xl text-white text-right leading-9"
         id="display"
         style={{ fontFamily: "digital" }}>
-        00000000000000000000000000
+        0
       </div>
 
       {/* Buttons Screen */}
