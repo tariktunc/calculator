@@ -163,7 +163,7 @@ export default function Home() {
           result = parseFloat(tempValue) / parseFloat(value);
           break;
         default:
-          result = "error";
+          result = "ERROR";
           break;
       }
 
@@ -178,6 +178,12 @@ export default function Home() {
         setTempValue("ERROR");
         setTempAction("ERROR");
       }
+    } else {
+      // Handle calculation error
+      setValue("ERROR");
+      setFormula("ERROR");
+      setTempValue("ERROR");
+      setTempAction("ERROR");
     }
   };
 
