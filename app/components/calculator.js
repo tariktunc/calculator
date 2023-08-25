@@ -114,10 +114,10 @@ export default function Home() {
         formula !== "/"
       ) {
         setFormula(formula + item.value); // ` + - * / ` Formül Ekranına eklendi
+        setTempValue(value); // ` + - * / ` tempValue eklendi
+        setValue(""); // Çıktı Ekranını sıfırla: value
+        actions(item);
       }
-      setTempValue(value); // ` + - * / ` tempValue eklendi
-      setValue(""); // Çıktı Ekranını sıfırla: value
-      actions(item);
     }
   };
 
@@ -134,7 +134,7 @@ export default function Home() {
         calculate();
         break;
       default:
-        prompt("actions default error");
+        console.error("actions default error");
         break;
     }
   };
@@ -164,10 +164,12 @@ export default function Home() {
       if (result !== "") {
         setFormula(value + tempAction + tempValue + "=" + result);
         setValue(result.toString());
+      } else {
+        setValue("ERROR");
+        setFormula("ERROR");
+        setTempValue("ERROR");
+        setTempAction("ERROR");
       }
-
-      // setTempValue("");
-      // setTempAction("");
     }
   };
 
