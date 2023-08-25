@@ -5,7 +5,7 @@ const buttonList = [
   {
     text: "AC",
     value: "AC",
-    isnum: false,
+    isnum: false, // Indicates if the button represents a number
   },
   {
     text: "/",
@@ -90,48 +90,53 @@ const buttonList = [
   },
 ];
 
+// Main component for the calculator
 export default function Home() {
-  const [value, setValue] = useState(""); // Todo: Output Screen.  value
-  const [formula, setFormula] = useState(""); // Todo: Formula Screen. formula
-  const [tempValue, setTempValue] = useState(""); // Todo:
-  const [tempAction, setTempAction] = useState(""); // Todo:  ` + / * - `
+  // State variables to keep track of different aspects of the calculator
+  const [value, setValue] = useState(""); // Holds the current output value
+  const [formula, setFormula] = useState(""); // Holds the formula being entered
+  const [tempValue, setTempValue] = useState(""); // Holds temporary value during calculations
+  const [tempAction, setTempAction] = useState(""); // Holds temporary action (+, -, *, /)
 
-  // 1
+  // Function called when a calculator button is clicked
   const clickedButton = (item) => {
     if (item.isnum === true) {
-      setValue(value + item.value); // Çıktı Ekranına değer eklendi: value
-      setFormula(formula + item.value); // Formül Ekranına değer eklendi: formula
+      setValue(value + item.value); // Add number to the output screen
+      setFormula(formula + item.value); // Add number to the formula screen
     } else if (item.text === "AC") {
+      // Clear everything
       setValue("");
       setFormula("");
       setTempValue("");
       setTempAction("");
     } else {
+      // Handle operators (+, -, *, /)
       if (
         formula !== "+" &&
         formula !== "-" &&
         formula !== "X" &&
         formula !== "/"
       ) {
-        setFormula(formula + item.value); // ` + - * / ` Formül Ekranına eklendi
-        setTempValue(value); // ` + - * / ` tempValue eklendi
-        setValue(""); // Çıktı Ekranını sıfırla: value
+        // Update formula, tempValue, and clear the output screen
+        setFormula(formula + item.value);
+        setTempValue(value);
+        setValue("");
         actions(item);
       }
     }
   };
 
-  // 2
+  // Function to handle actions (+, -, *, /)
   const actions = (item) => {
     switch (item.value) {
       case "+":
       case "-":
       case "X":
       case "/":
-        setTempAction(item.value); // ` + / * - `
+        setTempAction(item.value); // Store the action
         break;
       case "=":
-        calculate();
+        calculate(); // Perform the calculation when "=" is clicked
         break;
       default:
         console.error("actions default error");
@@ -139,10 +144,11 @@ export default function Home() {
     }
   };
 
-  // 3
+  // Function to perform calculations
   const calculate = () => {
     let result = "";
     if (value && tempValue && tempAction) {
+      // Calculate based on the stored action
       switch (tempAction) {
         case "+":
           result = parseFloat(tempValue) + parseFloat(value);
@@ -162,9 +168,11 @@ export default function Home() {
       }
 
       if (result !== "") {
+        // Update the formula and output screen with the result
         setFormula(value + tempAction + tempValue + "=" + result);
         setValue(result.toString());
       } else {
+        // Handle calculation error
         setValue("ERROR");
         setFormula("ERROR");
         setTempValue("ERROR");
@@ -175,14 +183,14 @@ export default function Home() {
 
   return (
     <div className="p-2 bg-black w-[340px] relative  border-2 border-solid border-47476b">
-      {/* Formula Screen tempValue */}
+      {/* Formula Screen */}
       <div
         className="h-8 text-2xl text-orange-600 text-right align-text-top leading-5 break-words"
         style={{ fontFamily: "digital" }}>
         <div className="max-w-5/6">{formula}</div>
       </div>
 
-      {/* Output Screen  value */}
+      {/* Output Screen */}
       <div
         className=" h-8 text-3xl text-white text-right align-text-top leading-5 break-words"
         id="display"
@@ -190,7 +198,7 @@ export default function Home() {
         <div className="font max-w-5/6">{value}</div>
       </div>
 
-      {/* Buttons Screen */}
+      {/* Buttons */}
       {buttonList.map((item, index) => (
         <button
           onClick={() => {
